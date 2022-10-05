@@ -37,5 +37,5 @@
 6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
 
 #### 关注开发者公众号
-如果需要了解项目最新状态和加入相关技术探讨，请扫描以下二维码关注开发者公众号。<br>
+如果需要了解项目最新状态和加入相关技术探讨，请打开微信搜索公众号"时光之箭"或者扫描以下二维码关注开发者公众号。<br>
 ![image](qrcode/qrcode_half_m.jpg "时光之箭")
