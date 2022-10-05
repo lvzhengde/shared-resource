@@ -38,4 +38,4 @@
 
 #### 关注开发者公众号
 如果需要了解项目最新状态和加入相关技术探讨，请打开微信搜索公众号"时光之箭"或者扫描以下二维码关注开发者公众号。<br>
-![image](https://gitee.com/lvzhengde/shared-resource/qrcode/qrcode_half_m.jpg "时光之箭")
+![image](https://open.weixin.qq.com/qr/code?username=Arrow-of-Time-zd "时光之箭")
