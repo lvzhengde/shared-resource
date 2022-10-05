@@ -38,4 +38,4 @@
 
 #### 关注开发者公众号
 如果需要了解项目最新状态和加入相关技术探讨，请扫描以下二维码关注开发者公众号。<br>
-![image](https://gitee.com/lvzhengde/shared-resource/blob/master/qrcode/qrcode_half_m.jpg "工具大全")
+![image](https://gitee.com/lvzhengde/shared-resource/blob/master/qrcode/qr_scan.png "工具大全")
