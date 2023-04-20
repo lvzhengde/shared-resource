@@ -1,0 +1,89 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+ *+. Vaster the RTL->CA converter
+ (c)KTDesignSystems, All Rights Reserved.
+ tsuchiya@ktds.co.jp
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+ #Change log 
+ ------------------------------------------------------------------------------
+ ver0.00.01a *first release.
+
+
+ 
+ #Lisence (BSD Style) 
+ ------------------------------------------------------------------------------
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions
+ are met:
+
+ Redistributions of source code must retain the above copyright
+ notice, this list of conditions and the following disclaimer.
+ Redistributions in binary form must reproduce the above
+ copyright notice, this list of conditions and the following
+ disclaimer in the documentation and/or other materials provided
+ with the distribution.
+
+ THIS SOFTWARE IS PROVIDED BY THE FREEBSD PROJECT ``AS IS'' AND ANY
+ EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE FREEBSD PROJECT OR
+ CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
+ USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
+ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ SUCH DAMAGE.;
+
+
+
+ #What's Vaster?
+ ------------------------------------------------------------------------------
+ Vaster is a RTL->CA model converter.
+ It reads VerilogHDL RTL model and creates SystemC CA model .
+
+
+ #How to Build from sorce code?
+ ------------------------------------------------------------------------------
+ Download Vaster and Sister.
+ 
+ Vister:https://sourceforge.net/projects/vaster
+ Sister:https://sourceforge.net/projects/sister
+
+ Build the sister.
+ 
+ >> cd sister/src
+ >> ./configure [options]
+ >> make 
+ 
+ Please enter the source directory and type as follows on your command line.
+
+ >> cd vaster/src
+ >> ./configure [options]
+ >> make SISTER_DIR=../../sister
+
+
+ #How to install?
+ ------------------------------------------------------------------------------
+ Please type as follows on your command line after build.
+ 
+ >> make intall
+
+
+ #How to use Vaster?
+ ------------------------------------------------------------------------------
+ After installation, please type as follows.
+
+ >> vaster [options] verilogHDL-files ...
+        options :
+            --help : displaying help.
+            etc ...
+
+
+
+--
+end
+

@@ -1,0 +1,8 @@
+用于HDL转换的开源项目
+
+sister用于将SystemC描述的RTL转换为Verilog HDL
+vaster用于将Verilog描述的RTL转换为使用SystemC描述
+sister和Vaster来源于同一家公司，需要按照描述配合使用
+
+v2sc来源于code.google.com/p/v2sc
+可以将VHDL和Verilog转换为SystemC，不限于RTL

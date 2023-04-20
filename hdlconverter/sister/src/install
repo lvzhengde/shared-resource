@@ -1,0 +1,34 @@
+#!/usr/bin/env python
+#installer for Sister.This file is a part of Sister. 
+#(c)KTDesignSystems, All Rights Reserved.
+
+import sys,os,re
+
+#generic
+INSTALL_DEF="/usr/local"
+
+#
+#get project directory name
+#
+def getPdir() :
+    cwd=os.path.abspath(os.getcwd())
+    dirnames=re.split("/",cwd)
+    dirname=dirnames[len(dirnames)-2]
+    return "../../"+dirname
+#
+#main process
+#
+def main(args):
+  #setting install directory
+  if len(args)>1 :insdir=args[1]
+  else : insdir=INSTALL_DEF
+  #copying directory
+  pdir=getPdir()
+  command="cp -fr "+pdir+" "+insdir
+  if(os.system(command)): return -1
+
+#
+#to start install process
+#
+if __name__=="__main__" :sys.exit(main(sys.argv))
+

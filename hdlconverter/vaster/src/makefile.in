@@ -1,0 +1,106 @@
+#
+# Makefile
+# This is a part of Sister.
+# (c)KTDesignSystems, All Rights Reserved.
+#
+
+CC=@CC@
+LEX=@LEX@
+YACC=@YACC@
+DEFS=@DEFS@
+LIBDIR=@libdir@
+INCDIR=@includedir@
+LIBS=@LIBS@
+EXEEXT=@EXEEXT@
+
+PROJECT=..
+SRC=$(PROJECT)/src
+VAS_BINDIR=$(PROJECT)/bin
+VAS_LIBDIR=$(PROJECT)/lib
+VAS_INCDIR=$(PROJECT)/include
+CFLAGS=-g 
+
+#parser
+PREPROC=$(SRC)/vpreproc.yy.c
+LEXER=$(SRC)/vaster.yy.c
+PARSER=$(SRC)/vaster.tab.c
+PARS_HEAD=$(SRC)/vaster.tab.h
+
+PREPROC_VHDL=$(SRC)/vpreproc_VHDL.yy.c
+LEXER_VHDL=$(SRC)/vaster_VHDL.yy.c
+PARSER_VHDL=$(SRC)/vaster_VHDL.tab.c
+PARS_HEAD_VHDL=$(SRC)/vaster_VHDL.tab.h
+
+#target
+TARGET=vaster
+TARGETLIB=libvaster.a
+TARGET_DIR=@prefix@
+TARGET_DIR_BIN=$(TARGET_DIR)/vaster/bin/$(TARGET)
+TARGET_DIR_LIB=$(TARGET_DIR)/vaster/lib/$(TARGETDL)
+MAIN_OBJ= $(SRC)/main.o       
+OBJ= \
+    $(SRC)/vpreproc.yy.o      \
+    $(SRC)/vprepro.o          \
+    $(SRC)/vaster.tab.o       \
+    $(SRC)/vaster.yy.o        \
+    $(SRC)/vpreproc_VHDL.yy.o \
+    $(SRC)/vprepro_VHDL.o     \
+    $(SRC)/vaster_VHDL.tab.o  \
+    $(SRC)/vaster_VHDL.yy.o   \
+    $(SRC)/vasobj.o           \
+    $(SRC)/vhser.o            \
+    $(SRC)/ovhdl.o            \
+
+#sister directory
+SISTER_DIR=../../../sister/sister
+
+$(TARGET) : $(OBJ) $(MAIN_OBJ) 
+	ar r $(TARGETLIB) $(OBJ)
+	$(CC) -o $@ $(OBJ) $(MAIN_OBJ) \
+        -L$(SISTER_DIR)/src $(CFLAGS) $(LIBS)  -lsister
+
+$(PREPROC) : $(SRC)/vpreproc.l
+	$(LEX) -Pvpre -o$@ $<
+
+$(LEXER) : $(SRC)/vaster.l
+	$(LEX) -Pvaster_ -o$@ $<
+
+$(PARSER) : $(SRC)/vaster.y
+	$(YACC) -p vaster_ -d -o$@ $<
+
+$(PREPROC_VHDL) : $(SRC)/vpreproc_VHDL.l
+	$(LEX) -PvpreVHDL -o$@ $<
+
+$(LEXER_VHDL) : $(SRC)/vaster_VHDL.l
+	$(LEX) -Pvaster_VHDL_ -o$@ $<
+
+$(PARSER_VHDL) : $(SRC)/vaster_VHDL.y
+	$(YACC) -p vaster_VHDL_ -d -o$@ $<
+
+.SUFFIXES:.c.o
+.c.o:
+	$(CC) $(DEFS) -I$(INCDIR) -I$(SISTER_DIR)/src -c $< $(CFLAGS)
+
+clean:
+	rm -fr $(OBJ)
+	rm -fr $(TARGET)
+	rm -fr $(TARGETLIB)
+	rm -fr $(LEXER)
+	rm -fr $(LEXER_VHDL)
+	rm -fr $(PARSER)
+	rm -fr $(PARSER_VHDL)
+	rm -fr $(PREPROC)
+	rm -fr $(PREPROC_VHDL)
+	rm -fr $(PARS_HEAD)
+	rm -fr $(PARS_HEAD_VHDL)
+	rm -fr $(MAIN_OBJ)
+
+distclean:
+	make clean -C $(SRC)
+	rm -fr config.log
+	rm -fr config.status
+	rm -fr autom4te.cache
+	rm -fr makefile
+    
+  
+ 

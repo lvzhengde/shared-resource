@@ -1,0 +1,112 @@
+#
+# Makefile
+# This is a part of Sister.
+# (c)KTDesignSystems, All Rights Reserved.
+#
+
+CC=@CC@
+LEX=@LEX@
+YACC=@YACC@
+DEFS=@DEFS@
+LIBDIR=@libdir@
+INCDIR=@includedir@
+LIBS=@LIBS@
+EXEEXT=@EXEEXT@
+VERSION=@PACKAGE_VERSION@
+
+PROJECT=..
+SRC=$(PROJECT)/src
+SIS_BINDIR=$(PROJECT)/bin
+SIS_LIBDIR=$(PROJECT)/lib
+SIS_INCDIR=$(PROJECT)/include
+CFLAGS=-g 
+
+
+INSTALLER=$(SRC)/install
+LEXER=$(SRC)/sister.yy.c
+PARSER=$(SRC)/sister.tab.c
+PREPROC=$(SRC)/preproc.yy.c
+PARSHEAD=$(SRC)/sister.tab.h
+SIS_SYSTEMC_H=$(SRC)/systemc.h
+TARGET=sister$(EXEEXT)
+TARGETDL=libsister.a
+TARGET_DIR=@prefix@
+TARGET_DIR_BIN=$(TARGET_DIR)/sister$(VERSION)/bin/$(TARGET)
+TARGET_DIR_LIB=$(TARGET_DIR)/sister$(VERSION)/lib/$(TARGETDL)
+MAIN_OBJ= $(SRC)/main.o       
+OBJ= $(SRC)/sister.tab.o \
+     $(SRC)/sister.yy.o  \
+     $(SRC)/preproc.yy.o \
+     $(SRC)/cgr.o        \
+     $(SRC)/msg.o        \
+     $(SRC)/gsearch.o    \
+     $(SRC)/check.o      \
+     $(SRC)/fsmd.o       \
+     $(SRC)/dumpfsmd.o   \
+     $(SRC)/outsysc.o    \
+     $(SRC)/outverilog.o \
+     $(SRC)/schedule.o   \
+     $(SRC)/optimize.o   \
+     $(SRC)/tesf.o       \
+     $(SRC)/ptnutil.o    \
+     $(SRC)/mainlib.o    \
+     $(SRC)/nosche.o     
+
+$(TARGET) : $(OBJ) $(MAIN_OBJ) 
+	ar r $(TARGETDL) $(OBJ)
+	mkdir -p $(SIS_LIBDIR)
+	cp -fr $(TARGETDL) $(SIS_LIBDIR)
+	$(CC) -o $@ $(MAIN_OBJ) $(OBJ) $(CFLAGS) $(LIBS)
+	mkdir -p $(SIS_BINDIR)
+	cp -fr $(TARGET) $(SIS_BINDIR)
+	mkdir -p $(SIS_INCDIR)
+	cp -fr $(SIS_SYSTEMC_H) $(SIS_INCDIR)
+
+$(PREPROC) : $(SRC)/preproc.l
+	$(LEX) -Ppre -o$@ $<
+
+$(LEXER) : $(SRC)/sister.l
+	$(LEX) -Psister_ -o$@ $<
+
+$(PARSER) : $(SRC)/sister.y
+	$(YACC) -p sister_ -d -o$@ $<
+
+.SUFFIXES:.c.o
+.c.o:
+	$(CC) $(DEFS) -I$(INCDIR) -c $< $(CFLAGS)
+
+install:$(TARGET) 
+	$(INSTALLER) $(TARGET_DIR)
+	rm -fr @bindir@/$(TARGET)
+	rm -fr @libdir@/$(TARGETDL)
+	ln -s $(TARGET_DIR_BIN) @bindir@/$(TARGET)
+	ln -s $(TARGET_DIR_LIB) @libdir@/$(TARGETDL)
+
+ctest:$(TARGET)
+	cd ./ctest;./run.py
+	cd ../example;./run.py
+
+clean:
+	rm -fr $(OBJ)
+	rm -fr $(MAIN_OBJ)
+	rm -fr $(TARGET)
+	rm -fr $(TARGETDL)
+	rm -fr $(LEXER)
+	rm -fr $(PARSER)
+	rm -fr $(PREPROC)
+	rm -fr $(PARSHEAD)
+	rm -fr $(SIS_INCDIR)
+	rm -fr $(SIS_BINDIR)
+	rm -fr $(SIS_LIBDIR)
+
+distclean:
+	make clean -C $(SRC)
+	rm -fr config.log
+	rm -fr config.status
+	rm -fr autom4te.cache
+	rm -fr makefile
+	cd ./ctest; ./run.py clean
+	cd ../example; ./run.py clean
+    
+  
+ 
