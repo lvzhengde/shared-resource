@@ -6,3 +6,5 @@ sister和Vaster来源于同一家公司，需要按照描述配合使用
 
 v2sc来源于code.google.com/p/v2sc
 可以将VHDL和Verilog转换为SystemC，不限于RTL
+
+以上均不支持Verilog-2002以上的新版本, 需要自己开发。
